@@ -26,9 +26,10 @@ const seed = () => {
 	.catch((err)=> console.log(err));
 };
 
-const returnNamesTable = ()=> {
+const returnNamesTable = (letter, id)=> {
 	let promises = [];
 	let namesTable;
+	let defaultUser = [];
 	// Create promises for searches for each Letter
 	for (var i=65; i<=90; i++){
 		let letter = String.fromCharCode(i) + '%';
@@ -53,7 +54,25 @@ const returnNamesTable = ()=> {
 	.then((allUserData)=>{
 		// Add "All" names object as last obj in table
 		namesTable.push({letter: "All", users: allUserData});
-		return namesTable;
+
+		// Select which set of users should be returned for current page
+		if (letter === 'All'){
+				// Index "26" of table contains All users;
+				users = namesTable[26].users
+			} else {
+				users = namesTable[letter.charCodeAt(0)-65].users;
+			}
+
+		// Set the default user
+		if (id) {
+			defaultUser = users.filter((user)=> {
+				return user.id === id*1;
+			});
+		} else {
+			defaultUser.push(users[0]);
+		}
+
+		return [namesTable, users, defaultUser[0]];
 	})
 	.catch((err)=> console.log(err));	
 };
