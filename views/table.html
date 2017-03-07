@@ -1,0 +1,19 @@
+
+<table class='table'>
+		<tr>
+		    <th>Firstname</th>
+		    <th>Lastname</th> 
+		    <th>Email</th>
+		    <th>Location</th>
+	  	</tr>
+		{% for user in users %}
+		<tr>
+			<td>{{user.firstName}}</td>
+			<td>{{user.lastName}}</td>
+			<td>{{user.email}}</td>
+			<td><a href="/users/filter/{{active}}?lat={{user.latitude}}&lng={{user.longitude}}&firstName={{user.firstName}}&lastName={{user.lastName}}">
+			({{user.latitude}}, {{user.longitude}})</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
