@@ -38,16 +38,16 @@
 			</div>
 			{% include 'table.html' %}
 		</div>
-		<div class="col-sm-4" style="margin-top: 15px">
-			<h2 style="color: blue" >{{mapFirstName}} {{mapLastName}}</h3>
-			<h4 >( {{lat}} , {{lng}})</h3>
-			<div id='map' >
+		<div class="col-sm-4" style="margin-bottom: 15px">
+			<h2 style="color: blue" >{{defaultUser.firstName}} {{defaultUser.lastName}}</h3>
+			<h5 >Location: ( {{defaultUser.latitude}} , {{defaultUser.longitude}})</h3>
+			<div id='map' style="border: 3px">
 				map here
 			</div>
 		</div>	
 			<script>
-			  var lat = {{lat}};
-			  var lng = {{lng}};
+			  var lat = {{defaultUser.latitude}};
+			  var lng = {{defaultUser.longitude}};
 		      function initMap() {
 		        var uluru = {lat: lat, lng: lng};
 		        var map = new google.maps.Map(document.getElementById('map'), {

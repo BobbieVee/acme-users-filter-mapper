@@ -5,8 +5,8 @@ app.get('/',(req, res, next)=> {
 	res.redirect('/users/filter/All')
 });
 
-app.get('/users/filter/:letter', (req, res, next)=> {
-	let users;
+app.get('/users/filter/:letter/:id?', (req, res, next)=> {
+	let users, defaultUser=[];
 	db.returnNamesTable()
 	.then((namesTable)=> {
 		if (req.params.letter === 'All'){
@@ -15,21 +15,16 @@ app.get('/users/filter/:letter', (req, res, next)=> {
 		} else {
 			users = namesTable[req.params.letter.charCodeAt(0)-65].users;
 		}
-		let mapDefaultUser = users[0];
-		let lat, lng, mapLastName, mapFirstName;
-		if  (req.query.lat && req.query.lng) {
-			lat = req.query.lat;
-			lng = req.query.lng;
-			mapLastName = req.query.lastName;
-			mapFirstName = req.query.firstName;
-			
+		if (req.params.id) {
+			defaultUser = users.filter((user)=> {
+				console.log('user.id, req.params.id =', user.id, req.params.id )
+				return user.id === req.params.id*1;
+			});
 		} else {
-			lat = mapDefaultUser.latitude;
-			lng = mapDefaultUser.longitude;
-			mapLastName = mapDefaultUser.lastName;
-			mapFirstName = mapDefaultUser.firstName;
+			defaultUser.push(users[0]);
 		}
-		res.render('index', {namesTable: namesTable, users: users, active: req.params.letter, lat: lat, lng: lng, mapLastName: mapLastName, mapFirstName: mapFirstName });
+
+		res.render('index', {namesTable: namesTable, users: users, active: req.params.letter, defaultUser: defaultUser[0]});
 	})
 	.catch(next);
 });

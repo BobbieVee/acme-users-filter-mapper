@@ -7,13 +7,17 @@
 		    <th>Location</th>
 	  	</tr>
 		{% for user in users %}
+		{% if user.id === defaultUser.id %}
+		<tr class="bg-primary">
+		{% else%}
 		<tr>
+		{% endif %}
 			<td>{{user.firstName}}</td>
 			<td>{{user.lastName}}</td>
 			<td>{{user.email}}</td>
-			<td><a href="/users/filter/{{active}}?lat={{user.latitude}}&lng={{user.longitude}}&firstName={{user.firstName}}&lastName={{user.lastName}}">
-			({{user.latitude}}, {{user.longitude}})</a>
-			</td>
+			<td><a href="/users/filter/{{active}}/{{user.id}}">
+			({{user.latitude}}, {{user.longitude}}) </a>
+			{% if user.id === defaultUser.id %}&nbsp - &gt{% endif %}</td>
 		</tr>
 		{% endfor %}
 	</table>
