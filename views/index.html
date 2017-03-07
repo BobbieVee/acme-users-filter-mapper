@@ -33,40 +33,11 @@
 							{% endif %}
 						</li>
 						{% endfor %}
-						
 				</ul>
 			</div>
 			{% include 'table.html' %}
 		</div>
-		<div class="col-sm-4" style="margin-bottom: 15px">
-			<h2 style="color: blue" >{{defaultUser.firstName}} {{defaultUser.lastName}}</h3>
-			<h5 >Location: ( {{defaultUser.latitude}} , {{defaultUser.longitude}})</h3>
-			<div id='map' style="border: 3px">
-				map here
-			</div>
-		</div>	
-			<script>
-			  var lat = {{defaultUser.latitude}};
-			  var lng = {{defaultUser.longitude}};
-		      function initMap() {
-		        var uluru = {lat: lat, lng: lng};
-		        var map = new google.maps.Map(document.getElementById('map'), {
-		          zoom: 4,
-		          center: uluru
-		        });
-		        var marker = new google.maps.Marker({
-		          position: uluru,
-		          map: map
-		        });
-		      }
-		    </script>
-		    <script async defer
-		    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAopJDwUG1vlrsZg94qP6yuPtzapUgYw8g&callback=initMap">
-		    </script>
-			
-
-
-		
+		{% include 'map.html' %}	
 	</div>
 </body>
 </html>
