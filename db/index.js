@@ -45,9 +45,6 @@ const returnNamesTable = (letter, id)=> {
 			let letter = String.fromCharCode(index+65);
 			return {letter: letter, users: letterData};
 		});
-		return _namesTable;
-	})	
-	.then((_namesTable)=>{
 		namesTable = _namesTable;
 		return User.findAll();
 	})
